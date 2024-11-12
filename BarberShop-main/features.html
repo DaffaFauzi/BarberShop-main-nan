@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255,87,34,0.8), rgba(33,150,243,0.8));
+        }
+
+        .back-button {
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #1a252f;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .grid-item {
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .grid-item p {
+            padding: 10px;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            overflow-x: auto;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .close-button {
+            background: #2c3e50;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .close-button:hover {
+            background: #1a252f;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="goBack()">Kembali</button>
+    <h1>Galeri Foto</h1>
+    <div class="grid-container">
+        <div class="grid-item" onclick="showModal('images/buzz cut.jpg', 'Potongan Commah Hair', 'Comma Hair adalah gaya rambut yang populer di kalangan pria, khususnya di Korea Selatan, dan sering terlihat pada bintang K-Pop serta aktor drama Korea.')">
+            <img src="images/buzz cut.jpg" alt="Foto 1">
+            <p>buzz cut</p>
+        </div>
+        <div class="grid-item" onclick="showModal('images/comma hair.jpg', 'Potongan Commah Hair', 'Comma Hair adalah gaya rambut yang populer di kalangan pria, khususnya di Korea Selatan, dan sering terlihat pada bintang K-Pop serta aktor drama Korea.')">
+            <img src="images/comma hair.jpg" alt="Foto 2">
+            <p>Comma Hair</p>
+        </div>
+        <div class="grid-item" onclick="showModal('images/french crop.jpg', 'Potongan French Crop', 'French crop adalah gaya rambut pria yang klasik dan simpel, di mana bagian samping dan belakang rambut dipotong pendek, sementara bagian atas sedikit lebih panjang.')">
+            <img src="images/french crop.jpg" alt="Foto 3">
+            <p>French Crop</p>
+        </div>
+        <div class="grid-item" onclick="showModal('images/caesar crop.jpg', 'Potongan Caesar Crop', 'Caesar crop adalah gaya rambut pendek yang terinspirasi gaya rambut Julius Caesar. Ini adalah variasi potongan crop dengan bagian depan yang lebih pendek dan rata.')">
+            <img src="images/caesar crop.jpg" alt="Foto 4">
+            <p>Caesar Crop</p>
+        </div>
+        <div class="grid-item" onclick="showModal('images/mowhack.jpg', 'Potongan Mowhack', 'Rambut Mowhack adalah gaya rambut dengan bagian tengah kepala dibiarkan panjang, membentuk strip dari dahi hingga tengkuk, sementara sisi kepala dicukur habis.')">
+            <img src="images/mowhack.jpg" alt="Foto 5">
+            <p>Mowhack</p>
+        </div>
+        <div class="grid-item" onclick="showModal('images/taper fade.jpg', 'Potongan Taper Fade', 'Taper fade adalah gaya potongan rambut yang memberikan efek gradasi pada panjang rambut, dari lebih panjang di bagian atas hingga sangat pendek di bagian sisi dan belakang.')">
+            <img src="images/taper fade.jpg" alt="Foto 6">
+            <p>Taper Fade</p>
+        </div>
+        <div class="grid-item" onclick="showModal('images/mullet.jpg', 'Potongan Mullet', 'Mullet adalah gaya rambut yang dikenal dengan panjang di bagian belakang dan lebih pendek di bagian depan dan samping, gaya ini menjadi terkenal pada tahun 1980-an dan 1990-an.')">
+            <img src="images/mullet.jpg" alt="Foto 7">
+            <p>Mullet</p>
+        </div>
+        <div class="grid-item" onclick="showModal('images/low taper.jpg', 'Potongan Low Taper', 'Low taper adalah salah satu variasi dari gaya potongan taper fade yang dimulai pada bagian bawah rambut, Pada potongan ini, rambut di sisi dan belakang kepala dipangkas dengan gradasi yang halus.')">
+            <img src="images/low taper.jpg" alt="Foto 8">
+            <p>Low Taper</p>
+        </div>
+        <div class="grid-item" onclick="showModal('images/high taper.jpg', 'Potongan High Taper', 'High taper adalah variasi taper fade di mana gradasi rambut dimulai lebih tinggi, Potongan ini menciptakan transisi yang lebih dramatis di bagian atas sangat pendek di bagian sisi dan belakang kepala.')">
+            <img src="images/high taper.jpg" alt="Foto 9">
+            <p>High Taper</p>
+        </div>
+        <div class="grid-item" onclick="showModal('images/pompadour.jpg', 'Potongan Pompadour', 'Pompadour adalah gaya rambut klasik yang ditandai dengan rambut bagian depan yang ditata ke atas, memberikan volume besar di bagian atas kepala. Nama ini berasal dari Madame de Pompadour, kekasih Raja Louis XV dari Prancis.')">
+            <img src="images/pompadour.jpg" alt="Foto 10">
+            <p>Pompadour</p>
+        </div>
+    </div>
+
+    <div class="modal" id="imageModal">
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Modal Image">
+            <h3 id="modalTitle"></h3>
+            <p id="modalPrice"></p>
+            <button class="close-button" onclick="closeModal()">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function showModal(imageSrc, title, price) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalPrice').textContent = price;
+            document.getElementById('imageModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

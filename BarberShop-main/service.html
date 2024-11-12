@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layanan Barbershop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, rgba(255,87,34,0.8), rgba(33,150,243,0.8));
+            padding: 20px;
+        }
+
+        .back-button {
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #1a252f;
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: scale(1.05);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .service-card h3 {
+            margin: 0;
+            padding: 10px;
+            background-color: #2c3e50;
+            color: #fff;
+        }
+
+        .service-card p {
+            padding: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #a9532a;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-content img {
+            width: 80%;
+            height: auto;
+            max-height: 300px;
+            border-radius: 8px;
+        }
+
+        .modal-content h3, .modal-content p {
+            margin-top: 10px;
+            color: #e2dcdc;
+        }
+
+        .modal-content ul {
+            list-style-type: none;
+            padding: 0;
+            color: #f3ebeb;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #2c3e50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            background-color: #1a252f;
+        }
+    </style>
+</head>
+<body>
+    <button class="back-button" onclick="goBack()">Kembali</button>
+    
+    <h1>Layanan Barbershop</h1>
+    <div class="services-container">
+        <div class="service-card" onclick="showModal('images/krimbat.jpg', 'Krimbat', 'Rp50.000', '', ['Krim Rambut', 'Pijat Kepala', 'Masker Rambut'])">
+            <img src="images/krimbat.jpg" alt="Layanan Krimbat">
+            <h3>Krimbat</h3>
+            <p>Rp50.000</p>
+        </div>
+        <div class="service-card" onclick="showModal('images/shampoo.jpg', 'Shampoo', 'Rp30.000', '', ['Shampo Khusus', 'Pijat Kepala', 'Pengeringan Rambut'])">
+            <img src="images/shampoo.jpg" alt="Layanan Shampo">
+            <h3>Shampoo</h3>
+            <p>Rp30.000</p>
+        </div>
+        <div class="service-card" onclick="showModal('images/colloring.jpg', 'Coloring', 'Rp50.000', '', ['Pewarna Rambut', 'Pelindung Rambut', 'Finishing'])">
+            <img src="images/colloring.jpg" alt="Layanan Coloring">
+            <h3>Coloring</h3>
+            <p>Rp50.000</p>
+        </div>
+        <div class="service-card" onclick="showModal('images/jeng&kum.jpg', 'Cukur Jenggot&kumis', 'Rp50.000', '', ['Cukur Jenggot dan Kumis', 'Perawatan Kulit Wajah', 'Produk Perawatan Jenggot dan Kumis'])">
+            <img src="images/jeng&kum.jpg" alt="Layanan Cukur Jenggot&Kumis">
+            <h3>Cukur Jenggot&Kumis</h3>
+            <p>Rp50.000</p>
+        </div>
+        <div class="service-card" onclick="showModal('images/hot towel.jpg', 'Hot Towel', 'Rp50.000', '', ['Handuk Panas', 'Air Panas dan Steamer', 'Krim atau Gel Cukur'])">
+            <img src="images/hot towel.jpg" alt="Layanan Hot Towel">
+            <h3>Hot Towel</h3>
+            <p>Rp50.000</p>
+        </div>
+        <div class="service-card" onclick="showModal('images/facialtreatment.jpg', 'Facialtreatment', 'Rp200.000', '', ['Pembersih Wajah', 'Eksfoliasi', 'Masker Wajah'])">
+            <img src="images/facialtreatment.jpg" alt="Layanan Facialtreatment">
+            <h3>Facialtreatment</h3>
+            <p>Rp200.000</p>
+        </div>
+        <div class="service-card" onclick="showModal('images/hairstyling.jpg', 'Hairstyling', 'Rp100.000', '', ['Shampoo dan Conditioner', 'Produk Styling', 'Alat Styling'])">
+            <img src="images/hairstyling.jpg" alt="Layanan Hairstyling">
+            <h3>Hairstyling</h3>
+            <p>Rp100.000</p>
+        </div>
+        <div class="service-card" onclick="showModal('images/massage.jpg', 'Massae', 'Rp100.000', '', ['Minyak Pijat', 'Matras atau Meja Pijat', 'Handuk'])">
+            <img src="images/massage.jpg" alt="Layanan Massage">
+            <h3>Massage</h3>
+            <p>Rp100.000</p>
+        </div>
+    </div>
+
+    <div class="modal" id="serviceModal">
+        <div class="modal-content" id="modalContent">
+            <button class="close-btn" onclick="closeModal()">Close</button>
+            <img id="modalImage" src="" alt="Layanan">
+            <h3 id="modalTitle"></h3>
+            <p id="modalPrice"></p>
+            <p id="modalDescription"></p>
+            <h4>Kebutuhan:</h4>
+            <ul id="modalNeeds"></ul>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function showModal(imageSrc, title, price, description, needs) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalPrice').innerText = "Harga: " + price;
+            document.getElementById('modalDescription').innerText = description;
+
+            const needsList = document.getElementById('modalNeeds');
+            needsList.innerHTML = '';
+            needs.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.textContent = item;
+                needsList.appendChild(listItem);
+            });
+
+            document.getElementById('serviceModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('serviceModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
